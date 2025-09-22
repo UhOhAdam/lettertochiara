@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Letter to Chiara</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div id="password-modal" class="modal">
+        <div class="modal-content">
+            <h2>Enter Password</h2>
+            <input type="password" id="password-input" placeholder="Enter password">
+            <button onclick="checkPassword()">Enter</button>
+            <p id="error-message" class="error-hidden">Incorrect password. Please try again.</p>
+        </div>
+    </div>
+
+    <div id="main-content" class="content-hidden">
+        <header class="site-header">
+            <h1 class="site-title">Letter to Chiara</h1>
+            <div class="user-greeting">
+                <span class="user-icon">👤</span>
+                <span class="greeting-text">Hi Chiara!</span>
+            </div>
+        </header>
+
+        <div class="container">
+            <div class="letter-section">
+                <img src="page1.jpeg" alt="Letter Page 1" class="letter-image">
+                <img src="page2.jpeg" alt="Letter Page 2" class="letter-image">
+            </div>
+
+            <div class="spacer"></div>
+
+            <div class="playlist-section">
+                <h2 class="playlist-title">Playlist Guide:</h2>
+                <img src="page3.jpg" alt="Song Recommendations Page 1" class="recommendation-image">
+                <img src="page4.jpg" alt="Song Recommendations Page 2" class="recommendation-image">
+            </div>
+
+            <div class="spotify-section">
+                <iframe data-testid="embed-iframe" style="border-radius:12px" src="https://open.spotify.com/embed/playlist/2FZFwgtJpJPOdDLxCrljQg?utm_source=generator" width="100%" height="352" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>
+            </div>
+        </div>
+
+        <audio id="background-music" loop preload="auto">
+            <source src="Benefits of Lying (With Your Friend).mp3" type="audio/mpeg">
+            Your browser does not support the audio element.
+        </audio>
+    </div>
+
+    <script>
+        function checkPassword() {
+            const input = document.getElementById('password-input');
+            const errorMessage = document.getElementById('error-message');
+            const modal = document.getElementById('password-modal');
+            const mainContent = document.getElementById('main-content');
+            const backgroundMusic = document.getElementById('background-music');
+
+            if (input.value.toLowerCase() === 'suffield') {
+                modal.style.display = 'none';
+                mainContent.classList.remove('content-hidden');
+
+                // Start background music
+                backgroundMusic.play().catch(function(error) {
+                    console.log('Audio autoplay failed:', error);
+                });
+            } else {
+                errorMessage.classList.remove('error-hidden');
+                input.value = '';
+                input.focus();
+            }
+        }
+
+        // Allow Enter key to submit password
+        document.getElementById('password-input').addEventListener('keypress', function(event) {
+            if (event.key === 'Enter') {
+                checkPassword();
+            }
+        });
+
+        // Focus on password input when page loads
+        window.onload = function() {
+            document.getElementById('password-input').focus();
+        };
+    </script>
+</body>
+</html>
